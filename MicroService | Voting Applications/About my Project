@@ -1,1 +1,14 @@
+In this project, I implemented a robust CI/CD pipeline for a microservices-based Voting Application. I began by sourcing the project's code from a GitHub repository containing Dockerfiles.
 
+Within Azure DevOps, I established a project named "Voting-App" and cloned the aforementioned GitHub repository into its repository section. To store the Docker images generated during the build process, I created an Azure Container Registry.
+
+Next, I provisioned an Azure Virtual Machine to serve as the agent pool for my CI/CD pipelines. This VM was configured to run the pipelines and build the Docker images. I connected to the VM using Git Bash and installed the necessary 
+prerequisites, including Azure Pipelines agents and Docker.
+
+With the CI environment established, I proceeded to implement the CD stage. I created an Azure Kubernetes cluster and installed Argo CD, a powerful tool for GitOps-based deployments. I configured Argo CD to monitor the project's source code repository for changes.
+
+The CI/CD pipeline operates as follows:
+
+CI: The pipeline consists of three stages: "dev," "test," and "update." The "dev" and "test" stages build and test the Docker images, respectively. Upon successful completion of these stages, the "update" stage triggers the CD process.
+CD: Argo CD continuously monitors the source code repository. Whenever changes are detected, it automatically updates the Kubernetes cluster with the latest version of the application. This ensures that the application remains up-to-date and 
+reflects the most recent code modifications.
