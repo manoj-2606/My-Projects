@@ -2,6 +2,12 @@ In this project, I containerized a simple Django web application.
 
 I began by cloning a repository containing the application's code onto an Azure Virtual Machine. Subsequently, Docker was installed on the VM.
 
-Utilizing the Dockerfile within the repository, I built a Docker image using the docker build command. After verifying the image's successful creation with docker images, I attempted to run the containerized application using Docker run command. Initially, I encountered an error due to a misconfigured inbound rule, preventing access to the application's port (8000). I resolved this by modifying the inbound rules on the Azure VM. 
+Utilizing the Dockerfile within the repository, I built a Docker image using the docker build command.
+
+After verifying the image's successful creation with docker images, I attempted to run the containerized application using Docker run command.
+
+Initially, I encountered an error due to a misconfigured inbound rule, preventing access to the application's port (8000).
+
+I resolved this by modifying the inbound rules on the Azure VM. 
 
 This project provided valuable hands-on experience in containerizing web applications.
