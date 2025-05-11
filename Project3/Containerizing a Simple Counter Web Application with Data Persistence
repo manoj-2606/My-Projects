@@ -1,4 +1,4 @@
-# Simple Counter Web Application with Docker Persistence
+# Simple Counter Web Application with Docker Persistence.
 
 This project demonstrates how to containerize a simple web application built with Python and Flask using Docker, and how to use Docker volumes to persist data.
 
