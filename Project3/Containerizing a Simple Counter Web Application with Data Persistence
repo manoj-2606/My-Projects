@@ -1,1 +1,13 @@
+# Simple Counter Web Application with Docker Persistence
 
+This project demonstrates how to containerize a simple web application built with Python and Flask using Docker, and how to use Docker volumes to persist data.
+
+## Overview
+
+The application is a basic counter that increments a value each time the web page is visited. The counter's value is stored in a file within the container. To ensure the counter persists even if the Docker container is stopped, removed, or restarted, we utilize a Docker volume.
+
+## Technologies Used
+
+* **Python:** The programming language for the application logic.
+* **Flask:** A micro web framework for Python.
+* **Docker:** A platform for building, running, and managing containerized applications.
