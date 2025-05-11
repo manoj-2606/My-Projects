@@ -1,0 +1,27 @@
+counter-app/
+├── app.py           # The main Flask application
+├── templates/       # Directory for HTML templates
+│   └── index.html   # The HTML page to display the counter
+├── requirements.txt # Lists Python dependencies
+└── Dockerfile       # Instructions for building the Docker image
+
+
+Once you've created a folder structure like above, execute by the below
+
+## Docker Instructions
+
+### Building the Docker Image
+
+Navigate to the `counter-app` directory and run the following command:
+
+```bash
+docker build -t counter-web-app .
+
+
+##Troubleshooting steps
+
+while running if you face any issues with docker image step, then try running the below command
+
+-> docker pull #your-iamge
+
+-> docker build ## command
