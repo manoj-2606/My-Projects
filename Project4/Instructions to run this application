@@ -1,0 +1,18 @@
+## Docker Instructions
+
+### Pull the Docker Image
+
+docker pull ##image
+
+### Build the Docker Image
+
+docker build -t persistent-sqlite-app .
+
+### Run your docker image
+
+docker run -p 5000:5000 --name persistent-sqlite-container -v persistent-sqlite-data:/data persistent-sqlite-app
+
+-p 5000:5000: Maps port 5000 on your host machine to port 5000 inside the Docker container, making the web application accessible.
+--name persistent-sqlite-container: Assigns a recognizable name to the running container.
+-v persistent-sqlite-data:/data: This is the key to data persistence. It creates a named Docker volume called persistent-sqlite-data and mounts it to the /data directory inside the container. The SQLite database file (mydatabase.db) is stored in this location.
+persistent-sqlite-app: The name of the Docker image to run.
