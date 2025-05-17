@@ -12,7 +12,9 @@ This project demonstrates a simple Flask web application that uses an SQLite dat
 * **Docker:** A platform for building, running, and managing containerized applications.
 
 ## Project Structure
+
 persistent-sqlite-app/
+
 ├── app/
 │   ├── app.py           # Main Flask application with SQLite interaction
 │   ├── schema.sql       # SQL script to initialize the database schema
