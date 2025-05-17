@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Persistent Messages App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2em;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: navy;
+        }
+        p {
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 0.5em;
+        }
+        .explanation {
+            background-color: #e0f7fa;
+            padding: 1em;
+            border-left: 5px solid teal;
+            margin-bottom: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Persistent Messages:</h1>
+
+    <div class="explanation">
+        <p><strong>Project Demonstration:</strong></p>
+        <p>This simple web application demonstrates data persistence using Docker volumes. Any messages added here are stored in an SQLite database within the Docker container. The <code>persistent-sqlite-data</code> Docker volume ensures that this data survives even if the container is stopped and restarted.</p>
+        <p>To add a new message, navigate to <code>/add/YOUR_MESSAGE</code> in the URL (e.g., <a href="/add/Testing%20Persistence">/add/Testing Persistence</a>).</p>
+    </div>
+
+    <ul>
+        {% for message in messages %}
+            <li>{{ message.text }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
