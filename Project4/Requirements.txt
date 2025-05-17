@@ -1,0 +1,6 @@
+I ran this application using the below. 
+
+# Docker Desktop
+# Ubuntu WSL
+
+You can also use the Cloud services like AWS or AZ - create a EC2 or VM, then install docker, create a necesary files as per the folder structure, edit the inbound rule and using your ip of VM access your application
