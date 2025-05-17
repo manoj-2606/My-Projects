@@ -1,4 +1,5 @@
-In many real-world scenarios, applications need to store and retrieve data that must survive the ephemeral nature of containers. Containers are designed to be easily created, scaled, and destroyed. Without mechanisms like Docker volumes, any data created or modified within a container would be lost when the container is stopped or removed.
+In many real-world scenarios, applications need to store and retrieve data that must survive the ephemeral nature of containers. Containers are designed to be easily created, scaled, and destroyed. 
+Without mechanisms like Docker volumes, any data created or modified within a container would be lost when the container is stopped or removed.
 
 Here's how this concept applies in real life:
 
