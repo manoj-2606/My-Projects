@@ -120,7 +120,8 @@ For development, the `docker-compose.yml` file includes a volume mount for the `
 ```yaml
 volumes:
   - ./app:/app
-This allows you to make changes to your Python code and HTML templates in the app directory on your host machine, and those changes will be immediately reflected inside the running web container without needing to rebuild the Docker image.````
+This allows you to make changes to your Python code and HTML templates in the app directory on your host machine, and those changes will be immediately reflected inside the running web container without needing to rebuild the Docker image.
+```
 
 ## How to STOP
 
