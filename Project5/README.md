@@ -25,14 +25,12 @@ flask-blog/
 
 ## How to Run
 
-## Getting Started
-
 Follow these steps to run the application:
 
 1.  **Clone the repository (if you haven't already):**
 
     ```bash
-    cd flask-blog
+    Once you've created the project structure | cd flask-blog
     ```
 
 2.  **Start the services using Docker Compose:**
