@@ -13,7 +13,7 @@ Before you begin, ensure you have the following installed on your system:
 
 ## Screenshot
 
-![Simple Blog Application Screenshot]([simple_blog_screenshot.png](https://github.com/manoj-2606/My-Projects/blob/7b8e75be25b70cbfea66579e6eba007f5d73b5f2/Project5/Output.png))
+![Simple Blog Application Screenshot](simple_blog_screenshot.png](https://github.com/manoj-2606/My-Projects/blob/7b8e75be25b70cbfea66579e6eba007f5d73b5f2/Project5/Output.png)
 
 ## How to Run
 
