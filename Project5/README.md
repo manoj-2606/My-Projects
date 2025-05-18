@@ -131,7 +131,7 @@ To stop the application and the containers, run:
 
 To also remove the named volumes (including the database data), you can run:
 
-```bash
+``bash
     docker-compose down -v
     ```
 
