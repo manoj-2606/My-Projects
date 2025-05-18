@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  web:
+    build: ./app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: blog_db
+    volumes:
+      - ./app:/app  # Mount the app directory for >
+  db:
+    image: "postgres:13"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: blog_db
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Named >
+
+volumes:
+  db_data:
