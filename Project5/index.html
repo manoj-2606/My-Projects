@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Blog</title>
+</head>
+<body>
+    <h1>Welcome to the Simple Blog!</h1>
+    {% if posts %}
+        <ul>
+        {% for post in posts %}
+            <li>
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content }}</p>
+                <button class="like-button" data-p>
+                <span class="like-count" id="like->
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No blog posts yet!</p>
+    {% endif %}
+
+    <script>
+        document.addEventListener('DOMContentLoade>
+            const likeButtons = document.querySele>
+
+            likeButtons.forEach(button => {
+                button.addEventListener('click', f>
+                    const postId = this.dataset.po>
+                    const likeCountSpan = document>
+                    let currentLikes = parseInt(li>
+                    currentLikes++;
+                    likeCountSpan.textContent = cu>
+                });
