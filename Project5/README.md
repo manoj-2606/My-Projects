@@ -135,6 +135,6 @@ To also remove the named volumes (including the database data), you can run:
     docker-compose down -v
 ````
 
-## Screenshot
+## Output Image
 
 ![Output Image](https://github.com/manoj-2606/My-Projects/blob/8701c8f89c816333da7f968c88505faa3ca09c7d/Project5/Output.png)
