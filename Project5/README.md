@@ -21,9 +21,6 @@ flask-blog/
 ├── docker-compose.yml      # Docker Compose configuration file
 └── README.md               # This file
 
-## Screenshot
-
-![Output Image](https://github.com/manoj-2606/My-Projects/blob/8701c8f89c816333da7f968c88505faa3ca09c7d/Project5/Output.png)
 
 ## How to Run
 
@@ -130,9 +127,16 @@ To stop the application and the containers, run:
 
 Bash
 
-docker-compose down
+``bash
+    docker-compose down
+    ```
 To also remove the named volumes (including the database data), you can run:
 
-Bash
+``bash
 
 docker-compose down -v
+``
+
+## Screenshot
+
+![Output Image](https://github.com/manoj-2606/My-Projects/blob/8701c8f89c816333da7f968c88505faa3ca09c7d/Project5/Output.png)
