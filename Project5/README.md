@@ -30,12 +30,13 @@ Follow these steps to run the application:
 1.  **Clone the repository (if you haven't already):**
 
     ```bash
-    Once you've created the project structure | cd flask-blog
+    Once you created the project structure | cd flask-blog
     ```
 
-2.  **Start the services using Docker Compose:**
+2.  **Enusre docker is there or not, Start the services using Docker Compose:**
 
     ```bash
+    docker --version
     docker-compose up -d --build
     ```
 
