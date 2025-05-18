@@ -125,17 +125,15 @@ This allows you to make changes to your Python code and HTML templates in the ap
 Stopping the Application
 To stop the application and the containers, run:
 
-Bash
-
-``bash
+    ```bash
     docker-compose down
     ```
+
 To also remove the named volumes (including the database data), you can run:
 
-``bash
-
-docker-compose down -v
-``
+```bash
+    docker-compose down -v
+    ```
 
 ## Screenshot
 
