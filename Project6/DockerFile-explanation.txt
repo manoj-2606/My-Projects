@@ -1,0 +1,40 @@
+This Dockerfile is very common for deploying a simple static website using Nginx. Let's break down each line:
+
+Dockerfile
+
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/
+EXPOSE 80
+Purpose of this Dockerfile:
+
+This Dockerfile's goal is to create a lightweight Docker image that serves a static HTML file (index.html) using the Nginx web server.
+
+Line by Line Explanation:
+
+FROM nginx:alpine
+
+FROM: This is the first instruction in almost every Dockerfile. It specifies the base image upon which your new image will be built. 
+Think of it as the foundational operating system and core software your application needs.
+
+nginx:alpine: This is the specific base image being pulled from Docker Hub (the public Docker registry).
+
+nginx: This indicates that the base image is the official Nginx web server. Nginx is a popular, high-performance web server often used for serving static content, reverse proxying, and load balancing.
+:alpine: This is the tag (or version) of the Nginx image. alpine refers to a very small and lightweight Linux distribution called Alpine Linux. Using alpine variants of images is a common practice 
+in Docker to keep image sizes minimal, which results in faster downloads, less storage consumption, and a smaller attack surface.
+What it does: Docker will download the nginx:alpine image if it's not already on your local machine. All subsequent instructions in your Dockerfile will be layered on top of this base image.
+
+COPY index.html /usr/share/nginx/html/
+
+COPY: This instruction copies files or directories from your Docker build context (the directory where you run docker build) into the Docker image.
+index.html: This is the source path. It means Docker will look for a file named index.html in the same directory where your Dockerfile is located (or relative to it).
+/usr/share/nginx/html/: This is the destination path inside the Docker image. This is the standard directory where Nginx looks for static web files to serve by default.
+What it does: This command takes your index.html file from your local machine (your build context) and places it inside the /usr/share/nginx/html/ directory within the Docker image. 
+When a container is run from this image, Nginx will then serve this index.html file as its default page.
+EXPOSE 80
+
+EXPOSE: This instruction informs Docker that the container will listen on the specified network ports at runtime.
+80: This refers to TCP port 80, which is the standard port for HTTP traffic.
+What it does: It acts as documentation for anyone using your image, indicating which ports the application inside the container expects to use. It doesn't actually publish the port to the host machine. 
+To publish the port (make it accessible from outside the container), you would use the -p flag when running the container (e.g., docker run -p 8080:80 my-nginx-image).
+
+
