@@ -156,4 +156,10 @@ If you make changes to your local `index.html` file (or any other files in your 
 
 This process ensures that your App Service pulls the latest version of your container image and reflects your updates.
 
+## Azure Resources
+
+![Azure Resources](https://github.com/manoj-2606/My-Projects/blob/8c410e19e2040bd243910af6eda1189b46bb00ff/Project6/Azure%20Resources.png)
+
+
+
 ---
