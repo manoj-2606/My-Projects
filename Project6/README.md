@@ -160,6 +160,8 @@ This process ensures that your App Service pulls the latest version of your cont
 
 ![Azure Resources](https://github.com/manoj-2606/My-Projects/blob/8c410e19e2040bd243910af6eda1189b46bb00ff/Project6/Azure%20Resources.png)
 
+## Output Image
 
+![Output Image](https://github.com/manoj-2606/My-Projects/blob/ca616ad1260011d468b7fbdb453bc3d334a312d1/Project6/Output%20Image.png)
 
 ---
