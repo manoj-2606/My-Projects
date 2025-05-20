@@ -17,3 +17,7 @@ Before you begin, ensure you have the following installed on your system:
 * **Azure Account:** A Microsoft Azure subscription. You can sign up for a [free Azure account](https://azure.microsoft.com/en-in/free/).
 
 ## Project Structure
+
+devops-news/
+├── index.html      # The static HTML content for the news post
+└── Dockerfile      # Instructions for building the Docker image
