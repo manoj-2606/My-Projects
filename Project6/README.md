@@ -37,7 +37,7 @@ Follow these steps to run the application:
     ```
 
 2.  **Create the `index.html` file:**
-    Inside the `devops-news` directory, create a file named `index.html` and paste the following HTML content into it: The code was placed in the Project
+    Inside the `devops-news` directory, create a file named `index.html` and paste the following HTML content into it, The code was placed in this Project Repo
 
 3.  **Create the `Dockerfile`:**
     In the same `devops-news` directory, create a file named `Dockerfile` and add the following content:
