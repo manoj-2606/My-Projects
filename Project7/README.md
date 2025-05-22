@@ -107,33 +107,12 @@ Ensure you have the following tools installed on your local machine:
 
 3.  **Create the Backend Service (`backend/`):**
     * Create directory: `mkdir backend && cd backend`
-    * Create `app.py` (paste Flask code below):
-        ```python
-        from flask import Flask
+    * Create `app.py`, this file is placed inside the backend repo;
 
-        app = Flask(__name__)
+    * Create `requirements.txt`, this file is placed inside the backend repo;
 
-        @app.route('/')
-        def hello_world():
-            return "Hello from the Backend API (v2)!"
+    * Create `Dockerfile`, this file is placed inside the backend repo;
 
-        if __name__ == '__main__':
-            app.run(host='0.0.0.0', port=5000)
-        ```
-    * Create `requirements.txt` (paste content below):
-        ```
-        Flask
-        ```
-    * Create `Dockerfile` (paste content below):
-        ```dockerfile
-        FROM python:3.9-slim-buster
-        WORKDIR /app
-        COPY requirements.txt .
-        RUN pip install -r requirements.txt
-        COPY . .
-        EXPOSE 5000
-        CMD ["python", "app.py"]
-        ```
     * Go back to the project root: `cd ..`
 
 ### Phase 2: Azure Setup (Resource Group, ACR, and Login)
