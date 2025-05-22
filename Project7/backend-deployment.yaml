@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: <your-acr-login-server>/aks-backend:latest # REPLACE WITH YOUR ACR LOGIN SERVER (e.g., aksdevacr007.azurecr.io)
+        image: aksdevacr007.azurecr.io/aks-backend:latest # REPLACE WITH YOUR ACR LOGIN SERVER (e.g., aksdevacr007.azurecr.io)
         ports:
         - containerPort: 5000
       imagePullPolicy: Always # Always pull the latest image during development
