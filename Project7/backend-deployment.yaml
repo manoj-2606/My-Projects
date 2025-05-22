@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: <your-acr-login-server>/aks-backend:latest # REPLACE WITH YOUR ACR LOGIN SERVER (e.g., aksdevacr007.azurecr.io)
+        ports:
+        - containerPort: 5000
+      imagePullPolicy: Always # Always pull the latest image during development
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP # Internal service, not directly exposed to internet
