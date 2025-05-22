@@ -99,33 +99,10 @@ Ensure you have the following tools installed on your local machine:
 
 2.  **Create the Frontend Service (`frontend/`):**
     * Create directory: `mkdir frontend && cd frontend`
-    * Create `index.html` (paste content below):
-      ```html
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>AKS Multi-App Frontend</title>
-            <style>
-                body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #e0f2f7; color: #007bff; }
-                h1 { font-size: 3em; }
-                p { font-size: 1.2em; }
-            </style>
-        </head>
-        <body>
-            <h1>Hello from the Frontend!</h1>
-            <p>This page is served by the Frontend container.</p>
-        </body>
-        </html>
-        ```
+    * Create `index.html`, the file is placed inside the frontend repo;
        
-    * Create `Dockerfile` (paste content below):
-        ```dockerfile
-        FROM nginx:alpine
-        COPY index.html /usr/share/nginx/html/
-        EXPOSE 80
-        ```
+    * Create `Dockerfile`, this file is placed inside the frontend repo;
+
     * Go back to the project root: `cd ..`
 
 3.  **Create the Backend Service (`backend/`):**
