@@ -458,4 +458,16 @@ To avoid unnecessary costs, always clean up your Azure resources when you are fi
     az group delete --name aks-dev-rg --yes --no-wait
     ```
 
+## Frontend Output Image
+
+![Frontend Output Image]([https://github.com/manoj-2606/My-Projects/blob/ca616ad1260011d468b7fbdb453bc3d334a312d1/Project6/Output%20Image.png](https://github.com/manoj-2606/My-Projects/blob/fa9cc0ecd3a20c39a54b4c114136f5405e5af9c5/Project7/Frontend-api-Output.png))
+
+---
+
+## Backend Output Image
+
+![Backend Output Image]([https://github.com/manoj-2606/My-Projects/blob/ca616ad1260011d468b7fbdb453bc3d334a312d1/Project6/Output%20Image.png](https://github.com/manoj-2606/My-Projects/blob/fa9cc0ecd3a20c39a54b4c114136f5405e5af9c5/Project7/Backend-api-output.png))
+
+---
+
 ---
