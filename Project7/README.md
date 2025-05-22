@@ -220,84 +220,12 @@ This step correctly sets up permissions for AKS to pull images from your ACR usi
 
 These YAML files instruct Kubernetes on how to deploy and expose your applications. Create these in your `aks-multi-app` root directory.
 
-1.  **`frontend-deployment.yaml`:**
-    ```yaml
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: frontend-deployment
-      labels:
-        app: frontend
-    spec:
-      replicas: 1
-      selector:
-        matchLabels:
-          app: frontend
-      template:
-        metadata:
-          labels:
-            app: frontend
-        spec:
-          containers:
-          - name: frontend
-            image: <your-acr-login-server>/aks-frontend:latest # REPLACE WITH YOUR ACR LOGIN SERVER (e.g., aksdevacr007.azurecr.io)
-            ports:
-            - containerPort: 80
-          imagePullPolicy: Always # Always pull the latest image during development
-    ---
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: frontend-service
-    spec:
-      selector:
-        app: frontend
-      ports:
-        - protocol: TCP
-          port: 80
-          targetPort: 80
-      type: LoadBalancer # Exposes the service to the internet
-    ```
+1.  **`frontend-deployment.yaml`:**, this file is placed in this repo;
+
     **Remember to replace `<your-acr-login-server>`** with your actual ACR login server name (e.g., `aksdevacr007.azurecr.io`).
 
-2.  **`backend-deployment.yaml`:**
-    ```yaml
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: backend-deployment
-      labels:
-        app: backend
-    spec:
-      replicas: 1
-      selector:
-        matchLabels:
-          app: backend
-      template:
-        metadata:
-          labels:
-            app: backend
-        spec:
-          containers:
-          - name: backend
-            image: <your-acr-login-server>/aks-backend:latest # REPLACE WITH YOUR ACR LOGIN SERVER (e.g., aksdevacr007.azurecr.io)
-            ports:
-            - containerPort: 5000
-          imagePullPolicy: Always # Always pull the latest image during development
-    ---
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: backend-service
-    spec:
-      selector:
-        app: backend
-      ports:
-        - protocol: TCP
-          port: 5000
-          targetPort: 5000
-      type: ClusterIP # Internal service, not directly exposed to internet
-    ```
+2.  **`backend-deployment.yaml`:**, this file is placed in this repo;
+
     **Remember to replace `<your-acr-login-server>`** with your actual ACR login server name (e.g., `aksdevacr007.azurecr.io`).
 
 ### Phase 6: Deploy to AKS and Verify
