@@ -118,14 +118,14 @@ git push                   on: push trigger           az & kubectl              
 * **`kubectl`:** The command-line tool for interacting with Kubernetes clusters.
     * Install via Azure CLI: `az aks install-cli`
     * Verify installation: `kubectl version --client`
-* **GitHub Account & Repository:** Create a Github Account and a repository.
+* **GitHub Account & Repository:**
 * **Git:** For version control and interacting with GitHub.
 
 ## 6. Step-by-Step Deployment Guide
 
 ### Phase 0: Create the Project Structure Locally
 
-1.  **Clone Your GitHub Repository:**
+1.  **Clone this GitHub Repository:**
     ```bash
     cd ~
     git clone [https://github.com/manoj-2606/My-Projects.git](https://github.com/manoj-2606/My-Projects.git)
@@ -169,15 +169,15 @@ git push                   on: push trigger           az & kubectl              
 
 3.  **Create Azure Container Registry (ACR):**
     ```bash
-    az acr create --resource-group aks-dev-rg --name aksdevacr007 --sku Basic --admin-enabled true
+    az acr create --resource-group aks-dev-rg --name aksdev007 --sku Basic --admin-enabled true
     ```
-    * **Important:** Replace `aksdevacr007` with your **globally unique name** for your ACR.
+    * **Important:** Replace `aksdev007` with your **globally unique name** for your ACR.
 
 4.  **Get Your ACR Login Server Name:**
     ```bash
-    az acr show --name aksdevacr007 --query loginServer --output tsv
+    az acr show --name aksdev007 --query loginServer --output tsv
     ```
-    Copy the output (e.g., `aksdevacr007.azurecr.io`). This is your `<your-acr-login-server>`.
+    Copy the output (e.g., `aksdev007.azurecr.io`). This is your `<your-acr-login-server>`.
 
 5.  **Log in to ACR from Docker CLI (for initial manual push/verification):**
     You'll need the ACR username and password from the Azure portal (navigate to your ACR -> "Access keys").
@@ -302,7 +302,7 @@ This final push will send the new workflow file to GitHub and, because it's a ch
 
 ### Phase 9: Monitor the Workflow Run on GitHub
 
-1.  **Go to your GitHub repository:** `https://github.com/manoj-2606/My-Projects`
+1.  **Go to your GitHub repository:** `https://github.com/------/`
 2.  Click on the **"Actions"** tab.
 3.  You should now see a new workflow run initiated, named "Build, Push, and Deploy Project 8 to AKS". Click on it to watch the jobs execute.
 
