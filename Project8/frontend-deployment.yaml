@@ -16,11 +16,10 @@ spec:
     spec:
       containers:
       - name: frontend
-        # The image tag will be replaced dynamically by the GitHub Action
         image: aksdev007.azurecr.io/aks-frontend-p8:IMAGE_TAG_PLACEHOLDER # REPLACE WITH YOUR ACR LOGIN SERVER
         ports:
         - containerPort: 80
-      imagePullPolicy: Always
+        imagePullPolicy: Always # <--- THIS IS THE CORRECTED LINE
 ---
 apiVersion: v1
 kind: Service
