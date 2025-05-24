@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment-p8
+  labels:
+    app: frontend-p8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-p8
+  template:
+    metadata:
+      labels:
+        app: frontend-p8
+    spec:
+      containers:
+      - name: frontend
+        # The image tag will be replaced dynamically by the GitHub Action
+        image: aksdev007.azurecr.io/aks-frontend-p8:IMAGE_TAG_PLACEHOLDER # REPLACE WITH YOUR ACR LOGIN SERVER
+        ports:
+        - containerPort: 80
+      imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service-p8
+spec:
+  selector:
+    app: frontend-p8
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
