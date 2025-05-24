@@ -378,7 +378,7 @@ To avoid incurring ongoing costs, always clean up your Azure resources when the 
 
 ## Pipeline Deployment Image
 
-![Pipeline Deployment Image](https://github.com/manoj-2606/My-Projects/blob/12c1ac1c2499b791ec10effe13eb82be8990d6e5/Project8/Pipeline%20Deployment.png)
+![Pipeline Deployment Image](https://github.com/manoj-2606/My-Projects/blob/5e7c6a6138b201a1d3017856d17066a73ef346ee/Project8/Pipeline%20Deployment.png)
 
 ## App-Output Image
 
