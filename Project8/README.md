@@ -118,7 +118,7 @@ git push                   on: push trigger           az & kubectl              
 * **`kubectl`:** The command-line tool for interacting with Kubernetes clusters.
     * Install via Azure CLI: `az aks install-cli`
     * Verify installation: `kubectl version --client`
-* **GitHub Account & Repository:** Your `manoj-2606/My-Projects` repository.
+* **GitHub Account & Repository:** Create a Github Account and a repository.
 * **Git:** For version control and interacting with GitHub.
 
 ## 6. Step-by-Step Deployment Guide
