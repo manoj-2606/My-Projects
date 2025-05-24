@@ -371,4 +371,16 @@ To avoid incurring ongoing costs, always clean up your Azure resources when the 
     ```
     *(Note: This process can take several minutes to complete in Azure's backend.)*
 
+
+## Az-RG Image
+
+![Az-RG Image](https://github.com/manoj-2606/My-Projects/blob/12c1ac1c2499b791ec10effe13eb82be8990d6e5/Project8/Az-RG.png)
+
+## Pipeline Deployment Image
+
+![Pipeline Deployment Image](https://github.com/manoj-2606/My-Projects/blob/12c1ac1c2499b791ec10effe13eb82be8990d6e5/Project8/Pipeline%20Deployment.png)
+
+## App-Output Image
+
+![App-Output Image](https://github.com/manoj-2606/My-Projects/blob/12c1ac1c2499b791ec10effe13eb82be8990d6e5/Project8/ForntEnd-%20Output.png)
 ---
