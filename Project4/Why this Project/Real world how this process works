@@ -1,17 +1,17 @@
 Imagine a Regular Web Application:
 
-Think of a simple website where you can type in messages, and they get saved and displayed. To save these messages, the website needs a database – a place to store information. In this project, we're using SQLite, which is like a small, 
-simple file on the computer that acts as our database.
+Think of a simple website where you can type in messages, and they get saved and displayed. To save these messages, 
+the website needs a database – a place to store information. In this project, we're using SQLite, which is like a small, simple file on the computer that acts as our database.
 
 Now, Introduce Docker:
 
-Docker lets us package our website (the Python code and the way it works) into a neat little box called a "container." This container has everything the website needs to run, all bundled together. This makes it easy to move the website to
-different computers or servers, and it will always work the same way.
+Docker lets us package our website (the Python code and the way it works) into a neat little box called a "container." 
+This container has everything the website needs to run, all bundled together. This makes it easy to move the website to different computers or servers, and it will always work the same way.
 
 The Problem of Containers and Data:
 
-By default, when a Docker container stops or is deleted, any changes or data created inside that container are also lost. Imagine writing messages on our website inside a container, and then when the container stops,
-all your messages disappear! That's not very useful if we want our data to stick around.
+By default, when a Docker container stops or is deleted, any changes or data created inside that container are also lost. 
+Imagine writing messages on our website inside a container, and then when the container stops, all your messages disappear! That's not very useful if we want our data to stick around.
 
 Docker Volumes to the Rescue (Our Project's Focus):
 
@@ -24,8 +24,9 @@ What This Project Does:
 Simple Website in a Container: We have a basic website (using Python and Flask) running inside a Docker container.
 Saving Messages in a Database: This website saves any messages you add into an SQLite database file.
 The Magic of the Volume: This SQLite database file is stored in that special "volume" we created (persistent-sqlite-data).
-Persistence: Because the database file is in the "volume," even if the container stops or we create a new container using the same volume, the database file (and all the messages you saved) will still be there!
-It's like the website's data is stored in a separate, persistent storage box that survives the website container itself.
+Persistence: Because the database file is in the "volume," even if the container stops or we create a new container using the same volume, 
+the database file (and all the messages you saved) will still be there! It's like the website's data is stored in a separate, persistent storage box that survives the website container itself.
+
 Think of it like this analogy:
 
 The Website: A temporary shop that can be set up and taken down easily (the Docker container).
