@@ -195,4 +195,9 @@ During the course of these foundational projects, a couple of common Kubernetes/
     * **Reason:** In a default AKS configuration, individual worker node VMs typically do not have directly assigned public IP addresses. Instead, they operate with private IPs within the cluster's virtual network. External public access for applications in AKS is usually handled by Azure Load Balancers (provisioned via `LoadBalancer` Service type) or Ingress Controllers, which receive the public IP and then route traffic to the internal node IPs or Pods.
     * **Resolution:** Understood this expected behavior and proceeded with the `LoadBalancer` Service type, which successfully provisioned an Azure Load Balancer with a public IP for external application access.
 
+## Nginx welcome page Image
+
+![Az-RG Image](https://github.com/manoj-2606/My-Projects/blob/b77ec610ba345f7ddd26a5d9ce26183abe1093aa/KubernetesMiniProjects/Project2/Output.png)
+
+## Nginx welcome page Image
 ---
