@@ -199,5 +199,4 @@ During the course of these foundational projects, a couple of common Kubernetes/
 
 ![Az-RG Image](https://github.com/manoj-2606/My-Projects/blob/b77ec610ba345f7ddd26a5d9ce26183abe1093aa/KubernetesMiniProjects/Project2/Output.png)
 
-## Nginx welcome page Image
 ---
