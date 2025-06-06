@@ -211,7 +211,3 @@ It's essential to clean up your Kubernetes resources to prevent unnecessary cost
     * **Expected Output:** No immediate confirmation, but the resource group will be queued for deletion.
 
 ---
-
-You have now successfully completed **Project 1: The "Hello World" of Pods & Deployments** from start to finish, including documenting it for your GitHub!
-
-Let me know when you've placed this `README.md` file in your repository and are ready to discuss **Project 2: Exposing Your Application to the Outside World (NodePort & LoadBalancer)**.
