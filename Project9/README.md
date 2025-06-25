@@ -132,7 +132,6 @@ To replicate this project and demonstrate the CI/CD pipeline, follow these steps
 
 * `azure-pipelines.yml`: The YAML definition for the CI/CD pipeline.
 * `index.html`: The simple, colorful HTML web application page (formerly `hellodevops.html`).
-* `README.md`: This file, explaining the project.
 
 ---
 
