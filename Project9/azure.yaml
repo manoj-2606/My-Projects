@@ -1,0 +1,82 @@
+# azure-pipelines.yml - Hello All Web App Pipeline - FINAL CORRECTED YAML
+
+trigger:
+- main # This pipeline will run whenever changes are pushed to the 'main' branch
+
+# Using a robust name format that uses date and revision.
+# This should give names like 'Release-20250614.1', 'Release-20250614.2'
+name: 'Release-$(Rev:r)' 
+
+
+variables:
+  # Define a unique counter name for THIS new pipeline
+  releaseCounter: 'HelloAllAppReleaseCounter' 
+
+  # Define a variable for the artifact name
+  buildArtifactName: 'HelloAllWebAppArtifact'  
+
+stages:
+- stage: BuildAndTest 
+  displayName: 'Build & Test Stage' 
+  jobs:
+  - job: BuildAndTestJob 
+    displayName: 'Build and Test Web Application'
+    pool:
+      vmImage: 'ubuntu-latest' 
+
+    steps:
+    - checkout: self 
+      displayName: 'Checkout Code'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Web App Artifact'
+      inputs:
+        pathToPublish: '$(Build.SourcesDirectory)' 
+        artifactName: '$(buildArtifactName)'
+        publishLocation: 'Container'
+
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Artifact for Testing'
+      inputs:
+        artifactName: '$(buildArtifactName)'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - script: |
+        echo "Verifying index.html exists in the downloaded artifact..."
+        ls -l "$(System.ArtifactsDirectory)/$(buildArtifactName)/" 
+        if [ -f "$(System.ArtifactsDirectory)/$(buildArtifactName)/index.html" ]; then
+          echo "index.html found! Basic test passed."
+        else
+          echo "Error: index.html not found in artifact at expected path."
+          echo "Contents of downloaded artifact:"
+          ls -l "$(System.ArtifactsDirectory)/$(buildArtifactName)/"
+          exit 1 
+        fi
+      displayName: 'Run Basic HTML File Test'
+
+- stage: Deploy
+  displayName: 'Deploy Stage: Deploy to App Service' # Updated display name
+  dependsOn: BuildAndTest # Ensures build completes first
+  jobs:
+  - job: DeployWebApp
+    displayName: 'Deploy Web App to Azure App Service'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download DevOpsDemo Artifact for Deployment'
+      inputs:
+        artifactName: '$(buildArtifactName)'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - task: AzureWebApp@1 # This is the task for deploying to Azure App Service
+      displayName: 'Deploy App to Azure App Service'
+      inputs:
+        azureSubscription: 'AzureForAppServiceDemo' # <<< USE YOUR SERVICE CONNECTION NAME HERE
+        appName: 'webappservices' # <<< USE YOUR APP SERVICE NAME HERE
+        package: '$(System.ArtifactsDirectory)/$(buildArtifactName)'
+        # Optional: If you want to deploy to a specific slot (e.g., 'staging' then swap)
+        # slotName: 'production' # This implies deploying to the production slot
+        # You might also want to set the App Service's startup file if it's not default index.html
+        # appType: 'webAppLinux' # if you chose Linux
