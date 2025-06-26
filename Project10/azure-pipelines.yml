@@ -1,0 +1,41 @@
+# azure-pipelines.yml
+# CI Pipeline for a simple Java application with Maven
+
+trigger:
+- main # Trigger pipeline on pushes to the 'main' branch
+
+name: 'JavaCI-$(Rev:r)' # Unique name for each pipeline run
+
+variables:
+  buildArtifactName: 'JavaApp' # Name of the build artifact
+
+stages:
+- stage: Build
+  displayName: 'Build Java Application'
+  jobs:
+  - job: BuildJob
+    displayName: 'Maven Build Job'
+    pool:
+      vmImage: 'ubuntu-latest' # 'ubuntu-latest' is excellent for Java builds
+
+    steps:
+    - checkout: self
+      displayName: 'Checkout Code'
+
+    - task: Maven@4 # <--- CHANGE THIS FROM Maven@3 TO Maven@4
+      displayName: 'Run Maven Build'
+      inputs:
+        mavenPomFile: 'pom.xml' # Path to your pom.xml file (it's in the root)
+        goals: 'package'        # Maven goal to compile and package into a JAR
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build Artifacts'
+      inputs:
+        pathtoPublish: '$(Build.SourcesDirectory)/target' # Maven builds to the 'target' folder
+        artifactName: '$(buildArtifactName)'
+        publishLocation: 'Container' # Publish to Azure DevOps artifacts
+
+    - script: |
+        echo "Java CI Pipeline Completed Successfully!"
+        echo "Artifacts are published, including the JAR file."
+      displayName: 'Pipeline Completion Message'
