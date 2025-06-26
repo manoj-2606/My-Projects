@@ -124,45 +124,8 @@ Follow these steps to set up and run this Java CI pipeline entirely from your we
 1.  Go back to the root of your `my-simple-java-app` repository (Files tab).
 2.  Click **"..." (More options)** then **"New file"**.
 3.  In the "Path" field, type: `pom.xml`
-4.  Paste the following Maven XML content:
-    ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <project xmlns="[http://maven.apache.org/POM/4.0.0](http://maven.apache.org/POM/4.0.0)"
-             xmlns:xsi="[http://www.w3.org/2001/XMLSchema-instance](http://www.w3.org/2001/XMLSchema-instance)"
-             xsi:schemaLocation="[http://maven.apache.org/POM/4.0.0](http://maven.apache.org/POM/4.0.0) [http://maven.apache.org/xsd/maven-4.0.0.xsd](http://maven.apache.org/xsd/maven-4.0.0.xsd)">
-        <modelVersion>4.0.0</modelVersion>
+4.  Paste the following Maven XML content [the file is in this repo]
 
-        <groupId>com.example.myapp</groupId>
-        <artifactId>hello-java-ci</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <packaging>jar</packaging>
-
-        <properties>
-            <maven.compiler.source>11</maven.compiler.source>
-            <maven.compiler.target>11</maven.compiler.target>
-            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        </properties>
-
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.0</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addClasspath>true</addClasspath>
-                                <mainClass>com.example.myapp.HelloWorld</mainClass>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-
-    </project>
-    ```
 5.  Add a commit message (e.g., "Add Maven pom.xml") and click **"Commit"**.
 
 ### Step 4: Add Azure Pipelines YAML (`azure-pipelines.yml`)
@@ -170,7 +133,7 @@ Follow these steps to set up and run this Java CI pipeline entirely from your we
 1.  Go back to the root of your `my-simple-java-app` repository (Files tab).
 2.  Click **"..." (More options)** then **"New file"**.
 3.  In the "Path" field, type: `azure-pipelines.yml`
-4.  Paste the pipeline YAML content (provided in previous responses, or copy from the "Pipeline (`azure-pipelines.yml`) Explained" section above).
+4.  Paste the pipeline YAML content (It's attached in this repo).
 5.  Add a commit message (e.g., "Add Azure Pipelines YAML for Java CI") and click **"Commit"**.
 
 ### Step 5: Create and Run Azure DevOps Pipeline
