@@ -180,6 +180,7 @@ Internet Traffic
 
 ```bash
 az group delete --name Project1-RG --yes --no-wait
+```
 
 ## Welcome_Page Image
 
