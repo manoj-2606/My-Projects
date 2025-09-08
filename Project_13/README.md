@@ -186,7 +186,7 @@ az group delete --name Project1-RG --yes --no-wait
 
 ![Az-RG Image](https://github.com/manoj-2606/My-Projects/blob/718da453ee9bad5cbd3eab83ef2013c0c4287da1/Project_13/Welcome_Page.png)
 
-## ID Added Image Image
+## ID Added Image
 
 ![Pipeline Deployment Image](https://github.com/manoj-2606/My-Projects/blob/718da453ee9bad5cbd3eab83ef2013c0c4287da1/Project_13/Id_added_mail.png)
 
