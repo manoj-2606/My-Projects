@@ -1,251 +1,182 @@
----
 # Project: Azure Core Foundation - Secure Web Infrastructure
+
 This project demonstrates the deployment of a complete, secure Azure infrastructure using Infrastructure as Code (Bicep). It includes networking, compute, storage, and monitoring components to host a web application with an image served from Azure Blob Storage.
 
-# Project Goal
+## Project Goal
+
 To build hands-on experience with core Azure services by deploying a foundational, secure network infrastructure with a web application, implementing proper security controls, monitoring, and storage integration.
 
-# Architecture & Components
+## Architecture & Components
+
 The solution utilizes the following Azure resources:
 
-Resource Group: (Project1-RG) - A logical container for all project-related Azure resources.
+- **Resource Group:** (`Project1-RG`) - Logical container for project resources.
+- **Virtual Network (VNet):** (`webapp{uniqueString}-vnet`) - Provides network isolation with a dedicated subnet.
+- **Network Security Group (NSG):** (`webapp{uniqueString}-nsg`) - Controls traffic flow, allowing HTTP (80), HTTPS (443), and SSH (22).
+- **Linux Virtual Machine (VM):** (`webapp{uniqueString}-vm`) - Ubuntu server running Nginx web server.
+- **Blob Storage Account:** (`sa{uniqueString}`) - Stores static images for the web app.
+- **Azure Monitor:** Monitors VM performance and triggers alerts.
+- **Action Group:** Sends email notifications for alerts.
 
-Virtual Network (VNet): (webapp{uniqueString}-vnet) - Provides network isolation with a dedicated subnet.
-
-Network Security Group (NSG): (webapp{uniqueString}-nsg) - Controls inbound/outbound traffic with specific security rules.
-
-Linux Virtual Machine (VM): (webapp{uniqueString}-vm) - Ubuntu server running Nginx web server.
-
-Blob Storage Account: (sa{uniqueString}) - Storage account hosting static images for the web application.
-
-Azure Monitor: - Performance monitoring and alerting system for the VM.
-
-Action Group: - Configuration for email notifications from alerts.
-
-text
 Internet Traffic
-      ↓
+↓
 +-----------------------------+
-| Network Security Group      |
-| - Allow HTTP (80)           |
-| - Allow HTTPS (443)         |
-| - Allow SSH (22)            |
-| - Deny All Other Inbound    |
+| Network Security Group |
+| - Allow HTTP (80) |
+| - Allow HTTPS (443) |
+| - Allow SSH (22) |
+| - Deny All Other Inbound |
 +-----------------------------+
-      ↓
+↓
 +-----------------------------+
-| Virtual Network & Subnet    |
+| Virtual Network & Subnet |
 +-----------------------------+
-      ↓
+↓
 +-----------------------------+
-| Linux VM (Ubuntu + Nginx)   | ←→ Azure Monitor (CPU Alerts)
+| Linux VM (Ubuntu + Nginx) | ←→ Azure Monitor (CPU Alerts)
 +-----------------------------+
-      ↓
+↓
 +-----------------------------+
-| Blob Storage Container      |
-| - Public image hosting      |
+| Blob Storage Container |
+| - Public image hosting |
 +-----------------------------+
 
-# Learning Objectives
-Upon completing this project, you will understand:
 
-How to deploy Azure infrastructure using Bicep (Infrastructure as Code)
+## Learning Objectives
 
-Virtual Network and subnet configuration for network isolation
+- Deploy Azure infrastructure using Bicep (Infrastructure as Code)
+- Configure VNet and subnet for network isolation
+- Manage NSG rules for traffic control
+- Deploy Linux VM with web server (Nginx)
+- Configure Blob Storage for public content hosting
+- Enable Azure Monitor for performance metrics and alerts
+- Implement RBAC for storage access
+- Troubleshoot common deployment/configuration issues
 
-Network Security Group rules for controlling traffic flow
+## Prerequisites
 
-Linux VM deployment and web server installation (Nginx)
+- Active Azure subscription
+- Azure CLI installed
+- Bicep CLI installed
+- Basic Linux command-line knowledge
 
-Blob Storage configuration for public content hosting
+## Project Steps: A Complete Walkthrough
 
-Azure Monitor setup for performance metrics collection
+### Phase 1: Environment Setup
 
-Alert rules configuration for proactive monitoring
+1. Install Tools:
+    ```bash
+    curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    az bicep install
+    az login
+    ```
 
-RBAC permissions management for storage operations
+2. Create Project Directory:
+    ```bash
+    mkdir azure-project
+    cd azure-project
+    ```
 
-Troubleshooting common deployment and configuration issues
+### Phase 2: Deploy Infrastructure
 
-# Prerequisites
-An active Azure subscription
+1. Create Bicep Templates:
+    - `main.bicep`
+    - `parameters.json`
+    - `install-webserver.sh`
 
-Azure CLI installed
+2. Create Resource Group:
+    ```bash
+    az group create --name Project1-RG --location eastus
+    ```
 
-Bicep CLI installed
+3. Deploy Infrastructure:
+    ```bash
+    az deployment group create \
+      --resource-group Project1-RG \
+      --template-file main.bicep \
+      --parameters @parameters.json
+    ```
 
-Basic knowledge of Linux command line
+### Phase 3: Configure Storage
 
-Project Steps: Complete Walkthrough
-Phase 1: Environment Setup
-Install and Configure Tools:
+1. Upload Image to Blob Storage:
+    ```bash
+    storage_key=$(az storage account keys list \
+      --account-name <storage-account-name> \
+      --resource-group Project1-RG \
+      --query '[0].value' -o tsv)
 
-bash
-# Install Azure CLI
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    az storage blob upload \
+      --account-name <storage-account-name> \
+      --container-name images \
+      --name sample-image.jpg \
+      --file sample-image.jpg \
+      --account-key $storage_key
 
-# Install Bicep
-az bicep install
+    az storage container set-permission \
+      --account-name <storage-account-name> \
+      --name images \
+      --public-access blob \
+      --account-key $storage_key
+    ```
 
-# Login to Azure
-az login
-Create Project Directory:
+### Phase 4: Configure Web Server
 
-bash
-mkdir azure-project
-cd azure-project
-Phase 2: Bicep Template Deployment
-Create Bicep Template Files:
+1. SSH into VM:
+    ```bash
+    ssh azureuser@<vm-public-ip>
+    ```
 
-main.bicep - Main infrastructure template
+2. Update HTML Page with Blob URL:
+    ```bash
+    blob_url="https://<storage-account-name>.blob.core.windows.net/images/sample-image.jpg"
+    sudo sed -i "s|REPLACE_WITH_BLOB_URL|$blob_url|g" /var/www/html/index.html
+    sudo systemctl restart nginx
+    exit
+    ```
 
-parameters.json - Deployment parameters
+### Phase 5: Monitoring Setup
 
-install-webserver.sh - VM bootstrap script
+1. Verify Monitoring:
+    ```bash
+    az monitor diagnostic-settings list \
+      --resource $(az vm show --name <vm-name> --resource-group Project1-RG --query id --output tsv)
 
-Deploy Infrastructure:
+    az monitor metrics alert list --resource-group Project1-RG
+    az monitor action-group list --resource-group Project1-RG
+    ```
 
-bash
-# Create resource group
-az group create --name Project1-RG --location eastus
+### Phase 6: Testing and Validation
 
-# Deploy infrastructure
-az deployment group create \
-  --resource-group Project1-RG \
-  --template-file main.bicep \
-  --parameters @parameters.json
-Phase 3: Storage Configuration
-Upload Image to Blob Storage:
+1. Test Web Application:
+    ```bash
+    curl http://<vm-public-ip>
+    curl -I https://<storage-account-name>.blob.core.windows.net/images/sample-image.jpg
+    ```
 
-bash
-# Get storage account key
-storage_key=$(az storage account keys list \
-  --account-name <storage-account-name> \
-  --resource-group Project1-RG \
-  --query '[0].value' \
-  -o tsv)
+2. (Optional) Simulate CPU Load:
+    ```bash
+    ssh azureuser@<vm-public-ip>
+    sudo apt-get install stress-ng -y
+    stress-ng --cpu 4 --timeout 300s
+    ```
 
-# Upload image
-az storage blob upload \
-  --account-name <storage-account-name> \
-  --container-name images \
-  --name sample-image.jpg \
-  --file sample-image.jpg \
-  --account-key $storage_key
+## Challenges & Solutions
 
-# Set container to public access
-az storage container set-permission \
-  --account-name <storage-account-name> \
-  --name images \
-  --public-access blob \
-  --account-key $storage_key
-Phase 4: Web Server Configuration
-SSH into VM and Configure Web Server:
+- Storage public access: Used `allowBlobPublicAccess: true` in Bicep.
+- RBAC permissions: Used storage account key for simplicity.
+- Alert config syntax: Corrected criterion types in Bicep.
+- Validation warnings: Used `environment().suffixes.storage`.
+- Custom script execution: Used base64-encoded `customData`.
 
-bash
-# SSH into VM (use password from parameters.json)
-ssh azureuser@<vm-public-ip>
+## Key Learnings
 
-# Update HTML with blob URL
-blob_url="https://<storage-account-name>.blob.core.windows.net/images/sample-image.jpg"
-sudo sed -i "s|REPLACE_WITH_BLOB_URL|$blob_url|g" /var/www/html/index.html
+- Infrastructure as Code best practices
+- Secure network and storage setup
+- Monitoring & proactive alerting
+- Debugging and validation techniques
 
-# Restart Nginx
-sudo systemctl restart nginx
+## Cleanup
 
-# Exit SSH
-exit
-Phase 5: Monitoring Configuration
-Verify Monitoring Setup:
-
-bash
-# Check diagnostic settings
-az monitor diagnostic-settings list \
-  --resource $(az vm show --name <vm-name> --resource-group Project1-RG --query id --output tsv)
-
-# Check alert rules
-az monitor metrics alert list --resource-group Project1-RG
-
-# Check action groups
-az monitor action-group list --resource-group Project1-RG
-Phase 6: Testing and Validation
-Test Web Application:
-
-bash
-# Test web server
-curl http://<vm-public-ip>
-
-# Test blob access
-curl -I https://<storage-account-name>.blob.core.windows.net/images/sample-image.jpg
-Test Monitoring Alerts (Optional):
-
-bash
-# SSH into VM and generate CPU load
-ssh azureuser@<vm-public-ip>
-sudo apt-get install stress-ng -y
-stress-ng --cpu 4 --timeout 300s
-Challenges Faced & Solutions
-1. Storage Account Public Access Configuration
-Issue: Azure's default security settings block public access to storage accounts
-Solution: Added allowBlobPublicAccess: true property to storage account configuration in Bicep template
-
-2. RBAC Permissions for Blob Upload
-Issue: "Storage Blob Data Contributor" role required for upload operations
-Solution: Used storage account key authentication instead of RBAC for simplicity
-
-3. Alert Configuration Syntax
-Issue: Complex criteria syntax with specific odata.type requirements
-Solution: Used correct criterion types and proper object structure in Bicep template
-
-4. Bicep Validation Warnings
-Issue: Template validation warnings about hardcoded URLs
-Solution: Used environment().suffixes.storage function for cloud compatibility
-
-5. Custom Script Execution
-Issue: Ensuring custom script runs properly during VM provisioning
-Solution: Used customData property with base64-encoded script content
-
-Key Learnings
-Infrastructure as Code
-Bicep template structure and syntax
-
-Parameter management and secure strings
-
-Resource dependencies and deployment sequencing
-
-Output values for cross-resource referencing
-
-Azure Networking
-VNet and subnet configuration
-
-NSG rule prioritization and management
-
-Public IP address allocation
-
-Network interface configuration
-
-Security Best Practices
-Principle of least privilege for NSG rules
-
-Secure password handling in parameters
-
-Storage account security configurations
-
-Monitoring and alerting for security events
-
-Monitoring & Operations
-Azure Monitor diagnostic settings
-
-Metric alert configuration
-
-Action groups for notifications
-
-Performance metric collection
-
-Cleanup
-To avoid ongoing charges, delete the resource group which will remove all associated resources:
-
-bash
+```bash
 az group delete --name Project1-RG --yes --no-wait
-
----
