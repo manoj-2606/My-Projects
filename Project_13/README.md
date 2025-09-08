@@ -180,3 +180,16 @@ Internet Traffic
 
 ```bash
 az group delete --name Project1-RG --yes --no-wait
+
+## Welcome_Page Image
+
+![Az-RG Image](https://github.com/manoj-2606/My-Projects/blob/718da453ee9bad5cbd3eab83ef2013c0c4287da1/Project_13/Welcome_Page.png)
+
+## ID Added Image Image
+
+![Pipeline Deployment Image](https://github.com/manoj-2606/My-Projects/blob/718da453ee9bad5cbd3eab83ef2013c0c4287da1/Project_13/Id_added_mail.png)
+
+## Alert Mail Image
+
+![App-Output Image](https://github.com/manoj-2606/My-Projects/blob/718da453ee9bad5cbd3eab83ef2013c0c4287da1/Project_13/alert_mail.png)
+---
