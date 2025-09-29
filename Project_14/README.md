@@ -279,3 +279,13 @@ az aks update --resource-group rg-aks-project-learn --name aks-project-learn --a
 **Solution:** Use unique names across Azure (add initials/timestamp).
 
 ---
+
+## Azure Resources Image
+
+![Azure Resources_Image](https://github.com/manoj-2606/My-Projects/blob/3b7b4c7d98c41dd9d09cdb2af9c5a81cecde8020/Project_14/Azure_Resources.png)
+
+## Project Output Image
+
+![Project Output Image](https://github.com/manoj-2606/My-Projects/blob/3b7b4c7d98c41dd9d09cdb2af9c5a81cecde8020/Project_14/Project%20Output.png)
+
+---
