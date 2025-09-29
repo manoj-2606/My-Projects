@@ -1,0 +1,261 @@
+AKS & ACR Infrastructure as Code with Terraform
+
+This repository demonstrates building a cloud-native foundation using Infrastructure as Code (IaC) principles. The setup provisions an Azure Kubernetes Service (AKS) cluster and an Azure Container Registry (ACR) using Terraform, establishing the foundation for running modern containerized applications on Azure.
+
+This project highlights how to:
+
+Define cloud infrastructure declaratively using Terraform.
+
+Provision and manage AKS clusters and ACR registries programmatically.
+
+Securely integrate AKS with ACR for seamless container image pulls.
+
+Troubleshoot real-world cloud deployment scenarios.
+
+Table of Contents
+
+Project Goal
+
+Architecture Overview
+
+Architecture Flow
+
+Azure Components Used
+
+Repository Structure
+
+Terraform Configuration Explained
+
+Setup & Deployment (End-to-End)
+
+Prerequisites
+
+Step 1: Install and Configure Tools
+
+Step 2: Create Project Structure
+
+Step 3: Create Terraform Configuration
+
+Step 4: Initialize and Deploy Infrastructure
+
+Step 5: Integrate AKS with ACR
+
+Step 6: Test End-to-End Integration
+
+Troubleshooting Guide
+
+Cleanup Instructions
+
+Key Learnings
+
+Project Goal
+
+The primary goal of this project is to implement Infrastructure as Code by building a complete AKS and ACR setup using Terraform. This enables reproducible, version-controlled infrastructure management, showcasing a fundamental DevOps skill: creating and destroying cloud environments with code.
+
+Architecture Overview
+
+The infrastructure follows a modular cloud-native architecture with two key components:
+
+┌─────────────────┐    ┌──────────────────┐
+│   Azure ACR     │    │    Azure AKS     │
+│  (Container     │◄───│  (Kubernetes     │
+│   Registry)     │    │   Cluster)       │
+│                 │    │                  │
+│ - Store Docker  │    │ - Run containers │
+│   images        │    │ - Auto-scale     │
+│ - Secure repo   │    │ - Managed service│
+└─────────────────┘    └──────────────────┘
+
+Architecture Flow
+
+The workflow follows this sequence:
+
+Terraform Code → Azure Resource Group → ACR + AKS → Secure Integration
+
+Azure Components Used
+
+Resource Group: Logical container for all project resources.
+
+Azure Container Registry (ACR): Private Docker registry for storing container images.
+
+Azure Kubernetes Service (AKS): Managed Kubernetes cluster for container orchestration.
+
+Managed Identity: Enables secure AKS-to-ACR authentication without credentials.
+
+Terraform: IaC tool used to provision and manage all resources.
+
+Repository Structure
+terraform-aks-project/
+├── main.tf                    # Main Terraform configuration
+├── outputs.tf                 # Output definitions
+├── test-acr-pull.yaml         # Kubernetes test manifest
+├── README.md                  # This documentation
+└── screenshots/               # Success verification screenshots
+    ├── terraform-apply-success.png
+    └── kubectl-logs-success.png
+
+Terraform Configuration Explained
+
+The main.tf defines the entire infrastructure:
+
+terraform Block: Specifies required providers (AzureRM).
+
+provider "azurerm": Configures authentication via Azure CLI.
+
+azurerm_resource_group: Creates the project resource group.
+
+azurerm_container_registry: Provisions the ACR (Basic SKU, admin disabled).
+
+azurerm_kubernetes_cluster: Deploys the AKS cluster with:
+
+Single node pool (Standard_B2s for cost efficiency).
+
+System-assigned managed identity for secure access.
+
+Kubenet networking with custom CIDR ranges.
+
+Setup & Deployment (End-to-End)
+Prerequisites
+
+Azure Account with active subscription
+
+Azure CLI installed
+
+Terraform installed
+
+Docker installed (for pushing images)
+
+Step 1: Install and Configure Tools
+terraform -version
+az --version
+
+# Login to Azure
+az login
+az account set --subscription="YOUR_SUBSCRIPTION_ID"
+
+Step 2: Create Project Structure
+mkdir terraform-aks-project
+cd terraform-aks-project
+
+Step 3: Create Terraform Configuration
+
+Create main.tf (see full configuration in this repo). Example snippet:
+
+# Resource Group
+resource "azurerm_resource_group" "main" {
+  name     = "project-learn"
+  location = "Central India"
+}
+
+# Azure Container Registry
+resource "azurerm_container_registry" "main" {
+  name                = "acrprojectlearn2024"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  sku                 = "Basic"
+  admin_enabled       = false
+}
+
+# Azure Kubernetes Service
+resource "azurerm_kubernetes_cluster" "main" {
+  name                = "aks-project-learn"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  dns_prefix          = "aksprojectlearn"
+
+  default_node_pool {
+    name       = "default"
+    node_count = 1
+    vm_size    = "Standard_B2s"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  network_profile {
+    network_plugin = "kubenet"
+    service_cidr   = "10.0.0.0/16"
+    dns_service_ip = "10.0.0.10"
+  }
+}
+
+Step 4: Initialize and Deploy Infrastructure
+terraform init
+terraform plan
+terraform apply
+
+Step 5: Integrate AKS with ACR
+az aks update \
+  --resource-group project-learn \
+  --name aks-project-learn \
+  --attach-acr acrprojectlearn2024
+
+Step 6: Test End-to-End Integration
+
+Push Test Image to ACR
+
+docker pull hello-world
+docker tag hello-world acrprojectlearn2024.azurecr.io/hello-world:latest
+docker login acrprojectlearn2024.azurecr.io \
+  --username acrprojectlearn2024 \
+  --password $(az acr credential show --name acrprojectlearn2024 --query passwords[0].value -o tsv)
+docker push acrprojectlearn2024.azurecr.io/hello-world:latest
+
+
+Deploy Test Pod in AKS
+
+kubectl apply -f test-acr-pull.yaml
+kubectl logs test-acr-pull
+
+
+✅ Expected Output: "Hello from Docker!"
+
+Troubleshooting Guide
+
+Subscription Authentication Error
+
+az login
+az account set --subscription="YOUR_ACTUAL_SUBSCRIPTION_ID"
+
+
+Kubernetes Version Not Supported → Remove kubernetes_version or use Azure defaults.
+
+401 Unauthorized (Image Pull Failure) → Ensure AKS is attached to ACR:
+
+az aks update --resource-group project-learn --name aks-project-learn --attach-acr acrprojectlearn2024
+
+
+Verify Resources
+
+az aks list --resource-group project-learn --output table
+az acr list --resource-group project-learn --output table
+kubectl get nodes
+
+Cleanup Instructions
+
+Destroy all resources with Terraform:
+
+terraform destroy
+
+
+Verify deletion:
+
+az group exists --name project-learn
+# Should return: false
+
+Key Learnings
+
+Infrastructure as Code: Cloud resources defined declaratively.
+
+Terraform Workflow: Mastered init → plan → apply → destroy.
+
+AKS Fundamentals: Cluster creation, node pools, networking.
+
+ACR Management: Secure container image storage and distribution.
+
+Cloud Integration: Identity-based AKS ↔ ACR authentication.
+
+Troubleshooting Skills: Debugging real-world deployment issues.
+
+DevOps Practices: Automated infra lifecycle management.
